@@ -26,7 +26,7 @@ exit</code> </pre>
 <strong>2. Create a Docker Compose File</strong>
 <br>
 <strong>1) Setup up for Wireguard (using Wireguard easy docker)</strong>
-<strong>In your project directory, create a <code>docker-compose.yml</code> file with the following configuration:</strong><be>
+<strong>Run the below Code:</strong><br>
 <pre><code>docker run --detach \
   --name wg-easy \
   --env LANG=en \
@@ -45,8 +45,7 @@ exit</code> </pre>
   ghcr.io/wg-easy/wg-easy</code></pre>
 <strong>Now, you can open the browser and navigate to <code> your_devic_ip:51821 </code>⁠ to manage your wireguard VPN</strong>
 <br>
-
-<strong>In your project directory, create a <code>docker-compose.yml</code> file with the following configuration:</strong><br>
+<strong>Run the below Code:</strong><br>
 <strong>2) Setup for Adguard home</strong>
 <pre><code>docker run --name adguardhome\
     --restart unless-stopped\
