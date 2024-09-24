@@ -23,10 +23,31 @@ exit</code> </pre>
     <li><strong>You can deploy this setup on any cloud provider offering a Linux environment.</strong></li>
     <li><strong>A domain name (optional, if you are using your home network).</strong></li>
 </ul>
-
 <strong>2. Create a Docker Compose File</strong>
+<br>
+<strong>1) Setup up for Wireguard (using Wireguard easy docker)</strong>
+<strong>In your project directory, create a <code>docker-compose.yml</code> file with the following configuration:</strong><be>
+<pre><code>docker run --detach \
+  --name wg-easy \
+  --env LANG=en \
+  --env WG_HOST=<🚨YOUR_SERVER_IP> \
+  --env PASSWORD_HASH='' \
+  --env PORT=51821 \
+  --env WG_PORT=51820 \
+  --volume ~/.wg-easy:/etc/wireguard \
+  --publish 51820:51820/udp \
+  --publish 51821:51821/tcp \
+  --cap-add NET_ADMIN \
+  --cap-add SYS_MODULE \
+  --sysctl 'net.ipv4.conf.all.src_valid_mark=1' \
+  --sysctl 'net.ipv4.ip_forward=1' \
+  --restart unless-stopped \
+  ghcr.io/wg-easy/wg-easy</code></pre>
+<strong>Now, you can open the browser and navigate to <code> your_devic_ip:51821 </code>⁠ to manage your wireguard VPN</strong>
+<br>
+
 <strong>In your project directory, create a <code>docker-compose.yml</code> file with the following configuration:</strong><br>
-<strong>1) Setup for Adguard home</strong>
+<strong>2) Setup for Adguard home</strong>
 <pre><code>docker run --name adguardhome\
     --restart unless-stopped\
     -v /my/own/workdir:/opt/adguardhome/work\
@@ -47,26 +68,6 @@ sudo systemctl disable systemd-resolved
 docker restart adguardhome</code></pre>
 
 <strong>Now, you can open the browser and navigate to <code> <your_devic_ip>:3000 </code>⁠ to control your AdGuard Home service</strong>
-<br>
-<strong>2) Setup up for Wireguard (using Wireguard easy docker)</strong>
-<strong>In your project directory, create a <code>docker-compose.yml</code> file with the following configuration:</strong><be>
-<pre><code>docker run --detach \
-  --name wg-easy \
-  --env LANG=en \
-  --env WG_HOST=<🚨YOUR_SERVER_IP> \
-  --env PASSWORD_HASH='' \
-  --env PORT=51821 \
-  --env WG_PORT=51820 \
-  --volume ~/.wg-easy:/etc/wireguard \
-  --publish 51820:51820/udp \
-  --publish 51821:51821/tcp \
-  --cap-add NET_ADMIN \
-  --cap-add SYS_MODULE \
-  --sysctl 'net.ipv4.conf.all.src_valid_mark=1' \
-  --sysctl 'net.ipv4.ip_forward=1' \
-  --restart unless-stopped \
-  ghcr.io/wg-easy/wg-easy</code></pre>
-<strong>Now, you can open the browser and navigate to <code> <your_devic_ip>:51821 </code>⁠ to manage your wireguard VPN</strong>
 
 <strong>3. Configure AdGuard Home</strong>
 <strong>Once the containers are running, open your browser and go to <code><your_devic_ip>:3000</code> to access the AdGuard Home setup wizard.</strong>
